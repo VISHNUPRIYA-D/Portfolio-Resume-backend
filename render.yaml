@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/portfolio-builder-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://mainline.proxy.rlwy.net:12004/railway
+      - key: SPRING_DATASOURCE_USERNAME
+        value: root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: ukqhBsUrZrMpIbYTEWxYGpBDaNHsIept
+      - key: JWT_SECRET
+        value: TZJnGD70cWMOX9C6TzSwQvd7vfS0hQyu9qlXemd1g+M=
