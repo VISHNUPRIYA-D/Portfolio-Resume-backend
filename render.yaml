@@ -1,9 +1,8 @@
 services:
   - type: web
     name: portfolio-backend
-    env: java
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/portfolio-builder-0.0.1-SNAPSHOT.jar
+    env: docker
+    plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
         value: jdbc:mysql://mainline.proxy.rlwy.net:12004/railway
