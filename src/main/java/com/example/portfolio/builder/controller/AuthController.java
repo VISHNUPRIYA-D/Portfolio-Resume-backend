@@ -4,6 +4,7 @@ import com.example.portfolio.builder.dto.AuthResponse;
 import com.example.portfolio.builder.model.User;
 import com.example.portfolio.builder.repository.UserRepo;
 import com.example.portfolio.builder.request.SignupRequest;
+import com.example.portfolio.builder.request.LoginRequest;
 import com.example.portfolio.builder.security.JwtUtil;
 import com.example.portfolio.builder.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +30,17 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
 
             // Generate token
-            String token = jwtUtil.generateToken(user.getUsername());
+            String token = jwtUtil.generateToken(loginRequest.getUsername());
 
             // Fetch user from DB
-            User dbUser = userRepo.findByUsername(user.getUsername())
+            User dbUser = userRepo.findByUsername(loginRequest.getUsername())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
             // Return token + userId + username
